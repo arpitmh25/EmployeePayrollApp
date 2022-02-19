@@ -18,7 +18,7 @@ public interface IEmployeePayrollService {
 
     public List<Employee> getAllData();
 
-    public Optional<Employee> getDataById(Integer id);
+    public Employee getDataById(Integer id);
 
     public Employee updateDataById(Integer id, Employee employee);
 

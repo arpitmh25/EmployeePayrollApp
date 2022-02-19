@@ -31,8 +31,9 @@ public class EmployeePayrollService implements IEmployeePayrollService {
 
     @Override
     public Employee postDataToRepo(Employee employee) {
-        repository.save(employee);
-        return employee;
+        Employee newEmployee = new Employee(employee);
+        repository.save(newEmployee);
+        return newEmployee;
     }
 
     @Override
@@ -42,13 +43,13 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     @Override
-    public Optional<Employee> getDataById(Integer id) {
-        Optional<Employee> newEmployee = repository.findById(id);
+    public Employee getDataById(Integer id) {
+        Employee newEmployee = repository.getById(id);
         return newEmployee;
     }
 
     public Employee updateDataById(Integer id, Employee employee) {
-        Employee newEmployee = new Employee(id, employee.getFirstName(), employee.getLastName(), employee.getProfilePic(), employee.getDepartment(), employee.getSalary(), employee.getDate(), employee.getNotes());
+        Employee newEmployee = new Employee(id, employee);
         repository.save(newEmployee);
         return newEmployee;
     }
