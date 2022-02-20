@@ -1,12 +1,12 @@
 package com.bridgelabz.employeepayrollservice.service;
 
+import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollservice.model.Employee;
 import com.bridgelabz.employeepayrollservice.repository.EmployeePayrollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService {
@@ -48,8 +48,8 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         return newEmployee;
     }
 
-    public Employee updateDataById(Integer id, Employee employee) {
-        Employee newEmployee = new Employee(id, employee);
+    public Employee updateDataById(Integer id, EmployeeDTO employeeDTO) {
+        Employee newEmployee = new Employee(id, employeeDTO);
         repository.save(newEmployee);
         return newEmployee;
     }
