@@ -1,5 +1,7 @@
 package com.bridgelabz.employeepayrollservice.model;
 
+import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,6 +34,7 @@ public class Employee {
     }
 
     public Employee() {
+
         super();
     }
 
@@ -45,6 +48,17 @@ public class Employee {
         this.salary = employee.salary;
         this.date = employee.date;
         this.notes = employee.notes;
+    }
+
+    public Employee(Integer id, EmployeeDTO employeeDTO) {
+        this.id = id;
+        this.firstName = employeeDTO.getFirstName();
+        this.lastName = employeeDTO.getLastName();
+        this.profilePic = employeeDTO.getProfilePic();
+        this.department = employeeDTO.getDepartment();
+        this.salary = employeeDTO.getSalary();
+        this.date = employeeDTO.getDate();
+        this.notes = employeeDTO.getNotes();
     }
 
     public Integer getId() {
