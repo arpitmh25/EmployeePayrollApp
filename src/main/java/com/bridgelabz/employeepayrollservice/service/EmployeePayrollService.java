@@ -56,7 +56,7 @@ public class EmployeePayrollService implements IEmployeePayrollService {
 
     public String deleteDataById(Integer id) {
         repository.deleteById(id);
-        return "Employee with ID:" + id + " got deleted";
+        return "Employee with unique ID:" + id + " got deleted";
     }
 
 
