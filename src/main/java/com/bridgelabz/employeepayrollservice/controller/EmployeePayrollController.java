@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -67,7 +68,7 @@ public class EmployeePayrollController {
 
     //Ability to update employee data for particular id
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id, @Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee updatedEmployee = service.updateDataById(id, employeeDTO);
         ResponseDTO dto = new ResponseDTO("Record for particular ID Updated Successfully", updatedEmployee);
         return new ResponseEntity(dto, HttpStatus.ACCEPTED);
