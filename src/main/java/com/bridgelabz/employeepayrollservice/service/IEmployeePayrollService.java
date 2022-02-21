@@ -6,15 +6,15 @@ import com.bridgelabz.employeepayrollservice.model.Employee;
 import java.util.List;
 
 public interface IEmployeePayrollService {
-    public String getMessage(String name);
+    String getMessage(String name);
 
-    public String postMessage(EmployeeDTO employeeDTO);
+    String postMessage(Employee employee);
 
-    public String putMessage(String name);
+    String putMessage(String name);
 
-    public String getWelcome();
+    String getWelcome();
 
-    public Employee postDataToRepo(EmployeeDTO employeeDTO);
+    public Employee postDataToRepo(Employee employee);
 
     public List<Employee> getAllData();
 

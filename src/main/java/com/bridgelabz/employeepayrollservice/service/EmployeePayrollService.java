@@ -14,27 +14,29 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     EmployeePayrollRepository repository;
 
     public String getMessage(String name) {
-        return "Welcome " + name;
+        return "Welcome To Employee Program " + name;
     }
 
-    public String postMessage(EmployeeDTO employeeDTO) {
-        return "Hello " + employeeDTO.getFirstName() + "" + employeeDTO.getLastName() + "!";
+    public String postMessage(Employee employee) {
+        return "Hello Employee " + employee.getFirstName() + "" + employee.getLastName() + "!";
     }
 
     public String putMessage(String name) {
-        return "How are you, " + name;
+        return "Hey Dude , " + name;
     }
 
     public String getWelcome() {
-        return "Welcome to Employee Payroll !!!";
+        return "Welcome to Employee Payroll App.....!";
     }
 
-    public Employee postDataToRepo(EmployeeDTO employeeDTO) {
-        Employee newEmployee = new Employee(employeeDTO);
+    @Override
+    public Employee postDataToRepo(Employee employee) {
+        Employee newEmployee = new Employee(employee);
         repository.save(newEmployee);
         return newEmployee;
     }
 
+    @Override
     public List<Employee> getAllData() {
         List<Employee> list = repository.findAll();
         return list;
@@ -54,7 +56,8 @@ public class EmployeePayrollService implements IEmployeePayrollService {
 
     public String deleteDataById(Integer id) {
         repository.deleteById(id);
-        return null;
+        return "Employee with unique ID:" + id + " got deleted";
     }
+
 
 }
