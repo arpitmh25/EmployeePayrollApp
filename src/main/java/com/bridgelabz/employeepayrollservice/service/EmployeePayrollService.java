@@ -1,12 +1,13 @@
 package com.bridgelabz.employeepayrollservice.service;
 
+import java.util.List;
+
 import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollservice.model.Employee;
 import com.bridgelabz.employeepayrollservice.repository.EmployeePayrollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService {
@@ -40,7 +41,6 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         return list;
     }
 
-    @Override
     public Employee getDataById(Integer id) {
         Employee newEmployee = repository.getById(id);
         return newEmployee;
@@ -56,5 +56,4 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         repository.deleteById(id);
         return null;
     }
-
 }
