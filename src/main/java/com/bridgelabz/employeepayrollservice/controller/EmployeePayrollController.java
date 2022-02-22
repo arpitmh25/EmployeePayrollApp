@@ -2,6 +2,7 @@ package com.bridgelabz.employeepayrollservice.controller;
 
 import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollservice.dto.ResponseDTO;
+import com.bridgelabz.employeepayrollservice.exception.EmployeePayrollException;
 import com.bridgelabz.employeepayrollservice.model.Employee;
 import com.bridgelabz.employeepayrollservice.service.IEmployeePayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class EmployeePayrollController {
 
     //Ability to get employee data by id
     @GetMapping("/get/{id}")
-    public ResponseEntity<String> getDataFromRepoById(@PathVariable Integer id) {
+    public ResponseEntity<String> getDataFromRepoById(@PathVariable Integer id) throws EmployeePayrollException {
         Employee existingEmployee = service.getDataById(id);
         ResponseDTO responseDTO = new ResponseDTO("Record for given ID Retrieved Successfully", existingEmployee);
         return new ResponseEntity(responseDTO, HttpStatus.OK);
@@ -71,7 +72,9 @@ public class EmployeePayrollController {
 
     //Ability to update employee data for particular id
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id, @Valid @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id,
+                                                   @Valid @RequestBody EmployeeDTO employeeDTO)
+                                                    throws EmployeePayrollException {
         Employee updatedEmployee = service.updateDataById(id, employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO("Record for particular ID Updated Successfully", updatedEmployee);
         return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
@@ -79,8 +82,9 @@ public class EmployeePayrollController {
 
     //Ability to delete employee data for particular id
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteDataInRepo(@PathVariable Integer id) {
-        ResponseDTO responseDTO = new ResponseDTO("Record for particular ID Deleted Successfully", service.deleteDataById(id));
+    public ResponseEntity<String> deleteDataInRepo(@PathVariable Integer id) throws EmployeePayrollException {
+        ResponseDTO responseDTO = new ResponseDTO
+                                  ("Record for particular ID Deleted Successfully", service.deleteDataById(id));
         return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
     }
 }
