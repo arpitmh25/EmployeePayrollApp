@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/employeepayrollservice")
@@ -34,7 +36,7 @@ public class EmployeePayrollController {
     }
 
     @PostMapping("/postMessage")
-    public ResponseEntity<String> postMessage(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<String> postMessage(@Valid @RequestBody EmployeeDTO employeeDTO) {
         String message = service.postMessage(employeeDTO);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
@@ -54,7 +56,7 @@ public class EmployeePayrollController {
 
     //Ability to save employee data to repo
     @PostMapping("/create")
-    public ResponseEntity<String> addDataToRepo(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<String> addDataToRepo(@Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee newEmployee = service.postDataToRepo(employeeDTO);
         ResponseDTO dto = new ResponseDTO("Record Added Succesfully", newEmployee);
         return new ResponseEntity(dto, HttpStatus.CREATED);
@@ -78,7 +80,7 @@ public class EmployeePayrollController {
 
     //Ability to update employee data for particular id
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id, @RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id, @Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee updatedEmployee = service.updateDataById(id, employeeDTO);
         ResponseDTO dto = new ResponseDTO("Record for particular ID Updated Successfully", updatedEmployee);
         return new ResponseEntity(dto, HttpStatus.ACCEPTED);
