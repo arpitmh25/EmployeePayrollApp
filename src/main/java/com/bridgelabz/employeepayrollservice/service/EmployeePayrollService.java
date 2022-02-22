@@ -52,9 +52,13 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     public Employee updateDataById(Integer id, EmployeeDTO employeeDTO) {
-        Employee newEmployee = new Employee(id, employeeDTO);
-        repository.save(newEmployee);
-        return newEmployee;
+        List<Employee> employees = repository.findAll();
+        Employee newEmployee = employees.stream().filter(addressData -> addressData.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new EmployeePayrollException("Specific address book details not found"));
+        Employee newEmployees = new Employee(id, employeeDTO);
+        repository.save(newEmployees);
+        return newEmployees;
     }
 
     public String deleteDataById(Integer id) {
