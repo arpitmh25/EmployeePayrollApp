@@ -25,4 +25,10 @@ public class EmployeePayrollExceptionalHandler {
 
     }
 
+    @ExceptionHandler(EmployeePayrollException.class)
+    public ResponseEntity<ResponseDTO> handleEmployeeNotFound(EmployeePayrollException exception) {
+        ResponseDTO response = new ResponseDTO("Invalid id input", exception.getMessage());
+        return new ResponseEntity<ResponseDTO>(response, HttpStatus.BAD_REQUEST);
+    }
+
 }

@@ -1,18 +1,20 @@
 package com.bridgelabz.employeepayrollservice.service;
 
-import java.util.List;
-
 import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
+import com.bridgelabz.employeepayrollservice.exception.EmployeePayrollException;
 import com.bridgelabz.employeepayrollservice.model.Employee;
 import com.bridgelabz.employeepayrollservice.repository.EmployeePayrollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService {
     @Autowired
     EmployeePayrollRepository repository;
+
 
     public String getMessage(String name) {
         return "Welcome " + name;
@@ -42,7 +44,10 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     public Employee getDataById(Integer id) {
-        Employee newEmployee = repository.getById(id);
+        List<Employee> list = repository.findAll();
+        Employee newEmployee = list.stream().filter(empData -> empData.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new EmployeePayrollException("Employee Not Found"));
         return newEmployee;
     }
 
@@ -53,7 +58,11 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     public String deleteDataById(Integer id) {
-        repository.deleteById(id);
+        List<Employee> list = repository.findAll();
+        Employee newEmployee = list.stream().filter(empData -> empData.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new EmployeePayrollException("Employee Not Found"));
+        repository.delete(newEmployee);
         return null;
     }
 }
