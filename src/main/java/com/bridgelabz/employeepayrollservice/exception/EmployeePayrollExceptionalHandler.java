@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Created to handle controller class exception
 @ControllerAdvice
 public class EmployeePayrollExceptionalHandler {
 
@@ -30,5 +31,4 @@ public class EmployeePayrollExceptionalHandler {
         ResponseDTO response = new ResponseDTO("Invalid id input", exception.getMessage());
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.BAD_REQUEST);
     }
-
 }
