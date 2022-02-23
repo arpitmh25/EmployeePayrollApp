@@ -13,34 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-
+//Created controller so that we can perform rest api calls
 @RestController
 @RequestMapping("/employeepayrollservice")
+
 public class EmployeePayrollController {
 
+    //Autowired IEmployeePayrollService interface so we can inject its dependency here
     @Autowired
     IEmployeePayrollService service;
 
-    @GetMapping("/getMessage")
-    public ResponseEntity<String> getMessage(@RequestParam String name) {
-        String message = service.getMessage(name);
-        return new ResponseEntity<String>(message, HttpStatus.OK);
-    }
-
-    @PostMapping("/postMessage")
-    public ResponseEntity<String> postMessage(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        String message = service.postMessage(employeeDTO);
-        return new ResponseEntity<String>(message, HttpStatus.OK);
-    }
-
-    @PutMapping("/putMessage/{name}")
-    public ResponseEntity<String> putMessage(@PathVariable String name) {
-        String message = service.putMessage(name);
-        return new ResponseEntity<String>(message, HttpStatus.OK);
-    }
-
     //Ability to display welcome message
-    @GetMapping("")
+    @GetMapping("/welcome")
     public ResponseEntity<String> getWelcome() {
         String welcome = service.getWelcome();
         return new ResponseEntity<String>(welcome, HttpStatus.OK);
@@ -54,7 +38,7 @@ public class EmployeePayrollController {
         return new ResponseEntity(responseDTO, HttpStatus.CREATED);
     }
 
-    //Ability to get all employees' data by findAll() method
+    //Ability to get all employees data by findAll() method
     @GetMapping("/get")
     public ResponseEntity<String> getAllDataFromRepo() {
         List<Employee> listOfEmployee = service.getAllData();
@@ -74,7 +58,7 @@ public class EmployeePayrollController {
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateDataInRepo(@PathVariable Integer id,
                                                    @Valid @RequestBody EmployeeDTO employeeDTO)
-                                                    throws EmployeePayrollException {
+            throws EmployeePayrollException {
         Employee updatedEmployee = service.updateDataById(id, employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO("Record for particular ID Updated Successfully", updatedEmployee);
         return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
@@ -84,7 +68,7 @@ public class EmployeePayrollController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDataInRepo(@PathVariable Integer id) throws EmployeePayrollException {
         ResponseDTO responseDTO = new ResponseDTO
-                                  ("Record for particular ID Deleted Successfully", service.deleteDataById(id));
+                ("Record for particular ID Deleted Successfully", service.deleteDataById(id));
         return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
     }
 }
