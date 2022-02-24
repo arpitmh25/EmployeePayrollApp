@@ -21,6 +21,7 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     EmployeePayrollRepository repository;
 
     public String getWelcome() {
+
         return "Welcome to Employee Payroll !!!";
     }
 
@@ -61,5 +62,14 @@ public class EmployeePayrollService implements IEmployeePayrollService {
             repository.deleteById(id);
         }
         return null;
+    }
+
+    //Abilty to serve controller class api to retrieve data having particular department
+    public List<Employee> getDataByDepartment(String department) {
+        List<Employee> newEmp = repository.findByDepartment(department);
+        if (newEmp.isEmpty()) {
+            throw new EmployeePayrollException("Employee Not Found");
+        }
+        return newEmp;
     }
 }

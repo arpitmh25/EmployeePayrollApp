@@ -4,7 +4,7 @@ import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollservice.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollservice.exception.EmployeePayrollException;
 import com.bridgelabz.employeepayrollservice.model.Employee;
-import com.bridgelabz.employeepayrollservice.service.IEmployeePayrollService;
+import com.bridgelabz.employeepayrollservice.service.EmployeePayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class EmployeePayrollController {
 
     //Autowired IEmployeePayrollService interface so we can inject its dependency here
     @Autowired
-    IEmployeePayrollService service;
+    EmployeePayrollService service;
 
     //Ability to display welcome message
     @GetMapping("/welcome")
@@ -70,5 +70,13 @@ public class EmployeePayrollController {
         ResponseDTO responseDTO = new ResponseDTO
                 ("Record for particular ID Deleted Successfully", service.deleteDataById(id));
         return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+    }
+
+    //Ability to get employee data by department name
+    @GetMapping("/getbydepartment/{department}")
+    public ResponseEntity<ResponseDTO> getRecordFromRepoByDepartment(@PathVariable String department) throws EmployeePayrollException {
+        List<Employee> newEmployee = service.getDataByDepartment(department);
+        ResponseDTO dto = new ResponseDTO("Record for given Department Retrieved Successfully", newEmployee);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 }
