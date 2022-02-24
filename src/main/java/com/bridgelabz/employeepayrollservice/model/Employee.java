@@ -3,10 +3,9 @@ package com.bridgelabz.employeepayrollservice.model;
 import com.bridgelabz.employeepayrollservice.dto.EmployeeDTO;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 //Map to a database table by name employee
 @Entity
@@ -22,8 +21,13 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String profilePic;
-    private String department;
+
+
+    @ElementCollection
+    @CollectionTable(name="employee_department",joinColumns= @JoinColumn(name="id"))
+    private List<String> department;
     private Long salary;
+    private String gender;
     private LocalDate date;
     private String notes;
 
@@ -37,6 +41,7 @@ public class Employee {
         this.profilePic = dto.getProfilePic();
         this.department = dto.getDepartment();
         this.salary = dto.getSalary();
+        this.gender = dto.getGender();
         this.date = dto.getDate();
         this.notes = dto.getNotes();
     }
@@ -49,6 +54,7 @@ public class Employee {
         this.profilePic = employeeDTO.getProfilePic();
         this.department = employeeDTO.getDepartment();
         this.salary = employeeDTO.getSalary();
+        this.gender = employeeDTO.getGender();
         this.date = employeeDTO.getDate();
         this.notes = employeeDTO.getNotes();
     }
